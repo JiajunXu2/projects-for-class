@@ -38,3 +38,74 @@ public class A1LinkedListXJ{
 		prod.print();
 	}
 }
+class LinkedList<E>{
+	private static class Node<E>{
+		private E element;
+		private Node<E> next;
+		public Node(E e, Node<E> n){
+			element = e;
+			next = n;
+		}
+		public E getElement(){
+			return element;
+		}
+		public Node<E> getNext(){
+			return next;
+		}
+		public void setElement(E e){
+			element = e;
+		}
+		public void setNext(Node<E> n){
+			next = n;
+		}
+	}
+	private Node<E> head;
+	public LinkedList(){
+		head = null;
+	}
+	public void add(E e){
+		Node<E> temp = new Node<>(e, head);			
+		head = temp;
+	}
+	public void insert(E e, Node<E> p, Node<E> n){
+		p.setNext(new Node<>(e, n));      
+	}
+	public Node<E> getNode(int i) throws Exception{
+		Node<E> temp = head;
+		while (i > 0){
+			if (temp == null) throw new Exception("Out of bound");
+			temp = temp.getNext();
+			i--;
+		}
+		return temp;
+	}
+	public E midElement(){
+		
+		Node first = head;
+		Node second = head;
+		if (first == null) return (E) first.getElement();
+		
+		while (first != null && second != null) {
+			if (first == second) return (E) first.getElement();
+			
+			first = first.next;
+			second = second.next.next; 
+		}
+		return (E) first.getElement(); 
+	}
+	public boolean detectLoop(){
+		
+		if (head == null) return false;
+		Node first = head;
+		Node second = head.next;
+		
+		while (first != null && second != null) {
+			if (first == second) return true;
+			
+			first = first.next;
+			second = second.next.next;
+		}
+		return false; 
+	}
+}
+
